@@ -1,4 +1,4 @@
-// defines pins numbers
+// defining pins numbers
 
 const int trigPin = 2;  //D4
 const int echoPin = 0;  //D3
