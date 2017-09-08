@@ -1,20 +1,27 @@
-/*
- *  This sketch sends data via HTTP GET requests to data.sparkfun.com service.
- *
- *  You need to get streamId and privateKey at data.sparkfun.com and paste them
- *  below. Or just customize this script to talk to other HTTP servers.
- *
- */
 
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "Nokia 5";
-const char* password = "qwertyuio";
-int xyz = 0;
-const char* host = "192.168.43.42";
+const char* ssid     = "SSID";
+const char* password = "password";
+const char* host = "<serverip>";
+
+// defining pins numbers
+
+const int trigPin = 2;  //D4
+const int echoPin = 0;  //D3
+
+// defines variables
+long duration;
+int distance;
 
 void setup() {
-  Serial.begin(115200);
+  
+  // put your setup code here, to run once:
+
+  // put your setup code here, to run once:
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  Serial.begin(9600);
   delay(10);
 
   // We start by connecting to a WiFi network
@@ -53,10 +60,26 @@ void loop() {
     Serial.println("connection failed");
     return;
   }
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
   
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculating the distance
+  distance= duration*0.034/2;
+  // Prints the distance on the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.println(distance);
   // We now create a URI for the request
-  String url = "/?hello"+String(xyz);
-  xyz+=1;
+  String url = "/?dis="+String(distance)+"?lat=<latitude>?lon=<longitudes>";//appropriate lattitude and longitude is entered
+
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
