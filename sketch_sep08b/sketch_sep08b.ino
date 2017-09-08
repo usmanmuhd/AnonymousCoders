@@ -1,9 +1,3 @@
-
-#include <ESP8266WiFi.h>
-
-const char* ssid     = "Nokia 5";
-const char* password = "qwertyuio";
-
 // defining pins numbers
 
 const int trigPin = 2;  //D4
@@ -12,30 +6,19 @@ const int echoPin = 0;  //D3
 // defines variables
 long duration;
 int distance;
-
 void setup() {
+  // put your setup code here, to run once:
+
   // put your setup code here, to run once:
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   Serial.begin(9600); // Starts the serial communication
 
-  Serial.println();
-  Serial.print(String("Connecting to ") + ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connected");  
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  
-  
 }
 
 void loop() {
+  // put your main code here, to run repeatedly:
+
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
