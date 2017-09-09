@@ -3,13 +3,17 @@ from flask import request
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET','POST'])
+@app.route('/')
 def disp():
-    a = request.url
-    a = a.split('%3F')
-    for i in range(3):
-        a[i] = a[i].split("=")[1]
-    print(str(a[0])+' '+str(a[1])+' '+str(a[2])+'\n')
-    return "Recieved"
-        
-app.run(host = '192.168.43.42', port = '8000', debug = False)
+    a = open("a.txt")#reading dustbin status
+    a = a.read()
+    a = a.strip()
+    if(a == 'a'):#2 filled 
+        b = open('2reds.html')
+    else:#2 empty
+        b = open('2greens.html')
+    b = b.read()
+    return b
+app.run(host = '192.168.43.42', port = 8000, debug = True, use_reloader=True)
+
+
